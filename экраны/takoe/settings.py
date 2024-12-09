@@ -1,20 +1,22 @@
 from pathlib import Path
-from tkinter import Tk, Canvas, Entry, Button, PhotoImage, Frame
+from tkinter import Tk, Canvas, Entry, Button, PhotoImage
 
-class Settings(Frame):
-    def __init__(self, parent_frame, assets_path, user_id):
-        super().__init__(parent_frame)  # Привязываем к родительскому фрейму
-        self.parent_frame = parent_frame
-        self.assets_path = assets_path
-        self.user_id = user_id
+class Application:
+    def __init__(self, root):
+        self.root = root
+        self.output_path = Path(__file__).parent
+        self.assets_path = self.output_path / Path(r"C:\Users\amiri\PycharmProjects\kursach\frames\frame settings")
         self.setup_ui()
 
     def relative_to_assets(self, path: str) -> Path:
         return self.assets_path / Path(path)
 
     def setup_ui(self):
+        self.root.geometry("762x637")
+        self.root.configure(bg="#C4E0A6")
+
         self.canvas = Canvas(
-            self.parent_frame,
+            self.root,
             bg="#C4E0A6",
             height=637,
             width=762,
@@ -22,12 +24,13 @@ class Settings(Frame):
             highlightthickness=0,
             relief="ridge"
         )
+
         self.canvas.place(x=0, y=0)
         self.canvas.create_rectangle(0.0, 125.0, 762.0, 445.0, fill="#74C38C", outline="")
 
         self.entry_image_1 = PhotoImage(file=self.relative_to_assets("entry_1.png"))
         self.entry_bg_1 = self.canvas.create_image(229.5, 371.5, image=self.entry_image_1)
-        self.entry_1 = Entry(self.parent_frame, bd=0, bg="#8FEAAB", fg="#000716", highlightthickness=0)
+        self.entry_1 = Entry(bd=0, bg="#8FEAAB", fg="#000716", highlightthickness=0)
         self.entry_1.place(x=154.0, y=350.0, width=151.0, height=43.0)
 
         self.image_image_1 = PhotoImage(file=self.relative_to_assets("image_1.png"))
@@ -38,7 +41,7 @@ class Settings(Frame):
 
         self.entry_image_3 = PhotoImage(file=self.relative_to_assets("entry_3.png"))
         self.entry_bg_3 = self.canvas.create_image(229.5, 256.5, image=self.entry_image_3)
-        self.entry_3 = Entry(self.parent_frame, bd=0, bg="#8FEAAB", fg="#000716", highlightthickness=0)
+        self.entry_3 = Entry(bd=0, bg="#8FEAAB", fg="#000716", highlightthickness=0)
         self.entry_3.place(x=154.0, y=235.0, width=151.0, height=43.0)
 
         self.image_image_2 = PhotoImage(file=self.relative_to_assets("image_2.png"))
@@ -52,7 +55,6 @@ class Settings(Frame):
 
         self.button_image_1 = PhotoImage(file=self.relative_to_assets("button_1.png"))
         self.button_1 = Button(
-            self.parent_frame,
             image=self.button_image_1,
             borderwidth=0,
             highlightthickness=0,
@@ -63,7 +65,6 @@ class Settings(Frame):
 
         self.button_image_2 = PhotoImage(file=self.relative_to_assets("button_2.png"))
         self.button_2 = Button(
-            self.parent_frame,
             image=self.button_image_2,
             borderwidth=0,
             highlightthickness=0,
@@ -74,7 +75,6 @@ class Settings(Frame):
 
         self.button_image_3 = PhotoImage(file=self.relative_to_assets("button_3.png"))
         self.button_3 = Button(
-            self.parent_frame,
             image=self.button_image_3,
             borderwidth=0,
             highlightthickness=0,
@@ -85,7 +85,6 @@ class Settings(Frame):
 
         self.button_image_4 = PhotoImage(file=self.relative_to_assets("button_4.png"))
         self.button_4 = Button(
-            self.parent_frame,
             image=self.button_image_4,
             borderwidth=0,
             highlightthickness=0,
@@ -94,5 +93,9 @@ class Settings(Frame):
         )
         self.button_4.place(x=522.0, y=38.0, width=187.0, height=62.33333206176758)
 
-        self.parent_frame.update()  # Обновляем родительский фрейм для отображения всех элементов
+        self.root.resizable(False, False)
 
+if __name__ == "__main__":
+    root = Tk()
+    app = Application(root)
+    root.mainloop()

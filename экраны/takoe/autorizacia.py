@@ -48,7 +48,7 @@ class AuthorizationApp:
 
         # UI Elements
         self.canvas.create_rectangle(0, 0, 721, 637, fill="#C4E0A6", outline="")
-        self.canvas.create_rectangle(711, 0, 721, 1189, fill="#74C38C", outline="")
+        self.canvas.create_rectangle(711, 0, 721, 1189, fill="#63BD03", outline="")
 
         self.entry_1 = self.create_entry(910, 212.5, "entry_1.png", False)
         self.entry_2 = self.create_entry(910.5, 361.5, "entry_2.png", True)
@@ -125,13 +125,13 @@ class AuthorizationApp:
         """Открывает главное окно."""
         if self.logged_in_user:
             self.root.destroy()
-            subprocess.Popen(["python", "main.py", self.logged_in_user])
+            subprocess.Popen(["python", r"C:\Users\amiri\PycharmProjects\kursach\экраны\main.py", self.logged_in_user])
         else:
             messagebox.showerror("Ошибка", "Вы не вошли в систему")
 
     def open_registration(self):
         """Открывает окно регистрации."""
-        subprocess.Popen(["python", "register.py"])
+        subprocess.Popen(["python", r"C:\Users\amiri\PycharmProjects\kursach\экраны\register.py"])
 
 
 if __name__ == "__main__":

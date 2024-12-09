@@ -1,20 +1,25 @@
 from pathlib import Path
-from tkinter import Frame, Canvas, Entry, Button, PhotoImage
+from tkinter import Tk, Canvas, Entry, Button, PhotoImage
+from tkinter import Frame, Label
 
-class Categories(Frame):
-    def __init__(self, parent_frame, assets_path, user_id):
-        super().__init__(parent_frame)  # Привязываем к родительскому фрейму
+class GUI:
+    def __init__(self, root, assets_path):
+        self.root = root
         self.assets_path = assets_path
-        self.user_id = user_id
+        self.setup_window()
         self.setup_canvas()
         self.setup_widgets()
 
     def relative_to_assets(self, path: str) -> Path:
         return self.assets_path / Path(path)
 
+    def setup_window(self):
+        self.root.geometry("762x637")
+        self.root.configure(bg="#C4E0A6")
+
     def setup_canvas(self):
         self.canvas = Canvas(
-            self,
+            self.root,
             bg="#C4E0A6",
             height=637,
             width=762,
@@ -44,6 +49,14 @@ class Categories(Frame):
         self.image_image_1 = PhotoImage(file=self.relative_to_assets("image_1.png"))
         self.canvas.create_image(231.0, 71.0, image=self.image_image_1)
 
+        self.entry_image_1 = PhotoImage(file=self.relative_to_assets("entry_1.png"))
+        self.canvas.create_image(631.5, 70, image=self.entry_image_1)
+        self.entry_1 = Entry(bd=0, bg="#74C38C", fg="#000716", highlightthickness=0)
+        self.entry_1.place(x=581.0, y=49.0, width=101.0, height=43.0)
+
+        self.image_image_2 = PhotoImage(file=self.relative_to_assets("image_2.png"))
+        self.canvas.create_image(608.0, 32.0, image=self.image_image_2)
+
         self.image_image_3 = PhotoImage(file=self.relative_to_assets("image_3.png"))
         self.canvas.create_image(152.0, 500.0, image=self.image_image_3)
 
@@ -58,7 +71,6 @@ class Categories(Frame):
             "button_5.png", "button_6.png", "button_7.png", "button_8.png",
             "button_9.png", "button_10.png", "button_11.png", "button_12.png"
         ]
-
         button_positions = [
             (629.0, 516.0), (489.0, 516.0), (349.0, 516.0), (629.0, 408.0),
             (489.0, 408.0), (349.0, 408.0), (629.0, 253.0), (489.0, 253.0),
@@ -68,7 +80,6 @@ class Categories(Frame):
         for image, position in zip(button_images, button_positions):
             button_image = PhotoImage(file=self.relative_to_assets(image))
             button = Button(
-                self,  # Привязка к текущему Frame
                 image=button_image,
                 borderwidth=0,
                 highlightthickness=0,
@@ -80,3 +91,12 @@ class Categories(Frame):
 
     def button_clicked(self, image):
         print(f"{image} clicked")
+
+if __name__ == "__main__":
+    OUTPUT_PATH = Path(__file__).parent
+    ASSETS_PATH = OUTPUT_PATH / Path(r"C:\Users\amiri\PycharmProjects\kursach\frames\frame categories")
+
+    root = Tk()
+    gui = GUI(root, ASSETS_PATH)
+    root.resizable(False, False)
+    root.mainloop()
